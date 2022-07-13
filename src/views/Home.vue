@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <CreateBook @doSearch="reRenderComponent" />
+    <BooksList :key="key" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import CreateBook from "@/components/CreateBook.vue";
+import BooksList from "../components/BooksList.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
+  data() {
+    return {
+      key: new Date(),
+    };
+  },
+  methods: {
+    reRenderComponent() {
+      this.key = new Date();
+    },
+  },
   components: {
-    HelloWorld
-  }
-}
+    CreateBook,
+    BooksList,
+  },
+};
 </script>
