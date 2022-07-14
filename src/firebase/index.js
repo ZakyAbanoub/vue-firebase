@@ -28,10 +28,12 @@ const db = getFirestore(app);
 //My Functions
 // const booksCollectionRef = collection(db, "books");
 
+//POST
 export const create = (collectionRef, obj) => {
   return addDoc(collection(db, collectionRef), obj);
 };
 
+//GET
 export const get = async (collectionRef, id) => {
   const docRef = doc(db, collectionRef, id);
   const docSnap = await getDoc(docRef);
@@ -43,17 +45,18 @@ export const get = async (collectionRef, id) => {
   }
 };
 
-//It will work
+//PUT
 export const update = (collectionRef, id, book) => {
   const bookRef = doc(db, collectionRef, id);
   return updateDoc(bookRef, book);
 };
 
-//It'll work
+//DELETE
 export const remove = (collectionRef, id) => {
   return deleteDoc(doc(db, collectionRef, id));
 };
 
+//GET
 export const search = async (collectionRef) => {
   let arr = [];
   const querySnapshot = await getDocs(collection(db, collectionRef));
@@ -64,7 +67,3 @@ export const search = async (collectionRef) => {
   console.log(arr);
   return arr;
 };
-
-// export const getBooks = () => {
-//     return booksCollection
-// }
