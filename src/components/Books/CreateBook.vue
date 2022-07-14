@@ -11,13 +11,13 @@
         <input v-model="author" class="form-control" required />
       </div>
 
-      <button type="submit" class="btn btn-success mt-3">Create User</button>
+      <button type="submit" class="btn btn-success mt-3">Create Book</button>
     </form>
   </div>
 </template>
 
 <script>
-import { createBook } from "@/firebase";
+import { create } from "@/firebase";
 export default {
   data() {
     return {
@@ -28,7 +28,7 @@ export default {
   emits: ["doSearch"],
   methods: {
     async onSubmit() {
-      await createBook({ title: this.title, author: this.author });
+      await create("books", { title: this.title, author: this.author });
       this.$emit("doSearch", true);
       this.title = "";
       this.author = "";

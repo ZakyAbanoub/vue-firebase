@@ -26,45 +26,43 @@ const db = getFirestore(app);
 // export const booksCollection = doc(db, "books");
 
 //My Functions
-const booksCollectionRef = collection(db, "books");
+// const booksCollectionRef = collection(db, "books");
 
-//It'll work
-export const createBook = (book) => {
-  return addDoc(collection(db, "books"), book);
+export const create = (collectionRef, obj) => {
+  return addDoc(collection(db, collectionRef), obj);
 };
 
-export const getBook = async (id) => {
-  const docRef = doc(db, "books", id);
+export const get = async (collectionRef, id) => {
+  const docRef = doc(db, collectionRef, id);
   const docSnap = await getDoc(docRef);
   console.log(docSnap);
   if (docSnap.exists()) {
-    // console.log("Document data:", docSnap.data());
     return docSnap.data();
   } else {
-    // doc.data() will be undefined in this case
     console.log("No such document!");
   }
 };
 
 //It will work
-export const updateBook = (id, book) => {
-  const bookRef = doc(db, "books", id);
+export const update = (collectionRef, id, book) => {
+  const bookRef = doc(db, collectionRef, id);
   return updateDoc(bookRef, book);
 };
 
 //It'll work
-export const deleteBook = (id) => {
-  return deleteDoc(doc(db, "books", id));
+export const remove = (collectionRef, id) => {
+  return deleteDoc(doc(db, collectionRef, id));
 };
 
-export const getAllBooks = async () => {
-  let books = [];
-  const querySnapshot = await getDocs(booksCollectionRef);
+export const search = async (collectionRef) => {
+  let arr = [];
+  const querySnapshot = await getDocs(collection(db, collectionRef));
   console.log(querySnapshot);
   querySnapshot.docs.forEach((doc) => {
-    books.push({ id: doc.id, ...doc.data() });
+    arr.push({ id: doc.id, ...doc.data() });
   });
-  return books;
+  console.log(arr);
+  return arr;
 };
 
 // export const getBooks = () => {

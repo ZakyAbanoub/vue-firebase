@@ -7,8 +7,8 @@
 
 <script>
 // @ is an alias to /src
-import CreateBook from "@/components/CreateBook.vue";
-import BooksList from "../components/BooksList.vue";
+import CreateBook from "@/components/Books/CreateBook.vue";
+import BooksList from "@/components/Books/BooksList.vue";
 
 export default {
   name: "Home",

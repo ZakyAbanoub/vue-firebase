@@ -1,6 +1,6 @@
 <template>
   <div class="card card-body mt-4">
-    <form @submit.prevent="updateBookHandler">
+    <form @submit.prevent="updateHandler">
       <div class="form-group">
         <label>Title</label>
         <input v-model="title" class="form-control" required />
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { getBook, updateBook } from "@/firebase";
+import { get, update } from "@/firebase";
 export default {
   data() {
     return {
@@ -26,23 +26,23 @@ export default {
     };
   },
   methods: {
-    async getBookHandler() {
-      const book = await getBook(this.$route.params.id);
+    async getHandler() {
+      const book = await get("books", this.$route.params.id);
       this.$emit("doSearch", true);
       this.title = book.title;
       this.author = book.author;
     },
-    async updateBookHandler() {
+    async updateHandler() {
       const updatedBook = {
         title: this.title,
         author: this.author,
       };
-      await updateBook(this.$route.params.id, updatedBook);
+      await update("books", this.$route.params.id, updatedBook);
       this.$router.push("/");
     },
   },
   mounted() {
-    this.getBookHandler();
+    this.getHandler();
   },
 };
 </script>

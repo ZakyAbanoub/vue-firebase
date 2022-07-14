@@ -4,22 +4,22 @@
       <thead>
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">Title</th>
-          <th scope="col">Author</th>
+          <th scope="col">Name</th>
+          <th scope="col">Age</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="book in books" :key="book.id">
-          <td>{{ book.id }}</td>
-          <td>{{ book.title }}</td>
-          <td>{{ book.author }}</td>
+        <tr v-for="player in players" :key="player.id">
+          <td>{{ player.id }}</td>
+          <td>{{ player.name }}</td>
+          <td>{{ player.age }}</td>
           <td>
-            <router-link :to="`/edit-book/${book.id}`">
+            <router-link :to="`/edit-player/${player.id}`">
               <button class="btn btn-primary btn-sm me-2">Edit</button>
             </router-link>
             <button
               class="btn btn-danger btn-sm"
-              @click="deleteBookHandler(book.id)"
+              @click="deleteBookHandler(player.id)"
             >
               Delete
             </button>
@@ -31,29 +31,29 @@
 </template>
 
 <script>
-import { getAllBooks, deleteBook } from "@/firebase";
+import { search, remove } from "@/firebase";
 export default {
   data() {
     return {
-      books: [],
+      players: [],
     };
   },
   computed: {
     isReady() {
-      return this.books && this.books.length;
+      return this.players && this.players.length;
     },
   },
   methods: {
-    async getAllBooksHandler() {
-      this.books = await getAllBooks();
+    async searchAll() {
+      this.players = await search("players");
     },
     async deleteBookHandler(id) {
-      await deleteBook(id);
-      await this.getAllBooksHandler();
+      await remove("players", id);
+      await this.searchAll();
     },
   },
   created() {
-    this.getAllBooksHandler();
+    this.searchAll();
   },
 };
 </script>
