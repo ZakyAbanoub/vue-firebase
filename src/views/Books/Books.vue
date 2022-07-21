@@ -11,7 +11,7 @@ import CreateBook from "@/components/Books/CreateBook.vue";
 import BooksList from "@/components/Books/BooksList.vue";
 
 export default {
-  name: "Home",
+  name: "Books",
   data() {
     return {
       key: new Date(),

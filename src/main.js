@@ -8,4 +8,9 @@ import store from "./store";
 
 // firebase(appFirestore);
 
-createApp(App).use(store).use(router).mount("#app");
+const app = createApp(App);
+
+app.use(store);
+app.use(router);
+
+app.mount("#app");

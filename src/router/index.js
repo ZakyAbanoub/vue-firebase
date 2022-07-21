@@ -22,6 +22,16 @@ const routes = [
     name: "EditPlayer",
     component: () => import("../views/Players/EditPlayer.vue"),
   },
+  {
+    path: "/users",
+    name: "Users",
+    component: () => import("../views/Users/Users.vue"),
+  },
+  {
+    path: "/edit-user/:id",
+    name: "EditUser",
+    component: () => import("../views/Users/EditUser.vue"),
+  },
 ];
 
 const router = createRouter({

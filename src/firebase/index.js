@@ -64,6 +64,5 @@ export const search = async (collectionRef) => {
   querySnapshot.docs.forEach((doc) => {
     arr.push({ id: doc.id, ...doc.data() });
   });
-  console.log(arr);
   return arr;
 };
