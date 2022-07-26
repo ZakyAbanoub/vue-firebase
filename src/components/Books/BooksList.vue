@@ -17,10 +17,7 @@
             <router-link :to="`/edit-book/${book.id}`">
               <button class="btn btn-primary btn-sm me-2">Edit</button>
             </router-link>
-            <button
-              class="btn btn-danger btn-sm"
-              @click="deleteHandler(book.id)"
-            >
+            <button class="btn btn-danger btn-sm" @click="deleteHandler(book.id)">
               Delete
             </button>
           </td>
@@ -31,12 +28,12 @@
 </template>
 
 <script>
-import { search, remove } from "@/firebase";
 export default {
-  data() {
-    return {
-      books: [],
-    };
+  props: {
+    books: {
+      type: Array,
+      required: true
+    }
   },
   computed: {
     isReady() {
@@ -44,16 +41,9 @@ export default {
     },
   },
   methods: {
-    async searchHandler() {
-      this.books = await search("books");
-    },
     async deleteHandler(id) {
-      await remove("books", id);
-      await this.searchHandler();
+      this.$emit('delete', id)
     },
-  },
-  created() {
-    this.searchHandler();
   },
 };
 </script>
